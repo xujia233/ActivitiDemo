@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/activiti?useUnicode=true&characterEncoding=utf-8&useSSL=true&nullCatalogMeansCurrent=true
+    username: root
+    password: DBuser123!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Activiti工作流配置
+  activiti:
+    # 自动部署验证设置:true-开启（默认） false-关闭
+    check-process-definitions: false
+    # 在activiti的默认配置中，process-definition-location-prefix 是指定activiti流程描述文件的前缀（即路径），启动时，activiti就会去寻找此路径下的流程描述文件，并且自动部署；suffix 是一个String数组，表示描述文件的默认后缀名，默认以上两种。
+    #    process-definition-location-prefix: classpath:/processes/
+    #    #    process-definition-location-suffixes:
+    #    #      - **.bpmn
+    #    #      - **.bpmn20.xml
+    #    history-level: full
+
+# mybatis配置
+mybatis:
+  type-aliases-package: activiti.activiti.entity
+  #mapper-locations: classpath:/activiti/activiti/dao/mybatis/*.xml
+  mapper-locations: classpath:/mybatis/*.xml

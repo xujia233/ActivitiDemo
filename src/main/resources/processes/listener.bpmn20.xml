@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="listenerTest" name="监听器测试" isExecutable="true">
+    <startEvent id="startEvent1"></startEvent>
+    <endEvent id="sid-39CC4B7B-E9FF-4C68-B2D2-4ADC6DD80560">
+      <extensionElements>
+        <activiti:executionListener event="start" class="activiti.activiti.listener.ExecutionListenerImpl"></activiti:executionListener>
+        <activiti:executionListener event="end" class="activiti.activiti.listener.ExecutionListenerImpl"></activiti:executionListener>
+      </extensionElements>
+    </endEvent>
+    <userTask id="sid-E27274BD-5FFE-4484-B0B7-EFAC35F180CA" name="第一环节" activiti:assignee="#{userId}">
+      <extensionElements>
+        <activiti:executionListener event="start" class="activiti.activiti.listener.ExecutionListenerImpl"></activiti:executionListener>
+        <activiti:executionListener event="end" class="activiti.activiti.listener.ExecutionListenerImpl"></activiti:executionListener>
+        <activiti:taskListener event="create" class="activiti.activiti.listener.AssigneeListener"></activiti:taskListener>
+        <activiti:taskListener event="assignment" class="activiti.activiti.listener.AssigneeListener"></activiti:taskListener>
+        <activiti:taskListener event="complete" class="activiti.activiti.listener.AssigneeListener"></activiti:taskListener>
+        <activiti:taskListener event="delete" class="activiti.activiti.listener.AssigneeListener"></activiti:taskListener>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <userTask id="sid-E1583F4D-6998-48A6-B4EF-C0623ECD86A7" name="第二环节" activiti:candidateUsers="test">
+      <extensionElements>
+        <modeler:user-info-firstname-test xmlns:modeler="http://activiti.com/modeler"><![CDATA[test]]></modeler:user-info-firstname-test>
+        <modeler:activiti-idm-candidate-user xmlns:modeler="http://activiti.com/modeler"><![CDATA[true]]></modeler:activiti-idm-candidate-user>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-CEE5F74F-8FDA-44CA-BB47-5E9B0531F08B" name="线1" sourceRef="startEvent1" targetRef="sid-E27274BD-5FFE-4484-B0B7-EFAC35F180CA"></sequenceFlow>
+    <sequenceFlow id="sid-CA16842F-0D76-4CD0-B38F-17030B7181BD" name="线2" sourceRef="sid-E27274BD-5FFE-4484-B0B7-EFAC35F180CA" targetRef="sid-E1583F4D-6998-48A6-B4EF-C0623ECD86A7"></sequenceFlow>
+    <sequenceFlow id="sid-D0B1DEB4-58AB-4FB2-80D9-1EFC48C37D28" name="线3" sourceRef="sid-E1583F4D-6998-48A6-B4EF-C0623ECD86A7" targetRef="sid-39CC4B7B-E9FF-4C68-B2D2-4ADC6DD80560">
+      <extensionElements>
+        <activiti:executionListener event="take" class="activiti.activiti.listener.ExecutionListenerImpl"></activiti:executionListener>
+      </extensionElements>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_listenerTest">
+    <bpmndi:BPMNPlane bpmnElement="listenerTest" id="BPMNPlane_listenerTest">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-39CC4B7B-E9FF-4C68-B2D2-4ADC6DD80560" id="BPMNShape_sid-39CC4B7B-E9FF-4C68-B2D2-4ADC6DD80560">
+        <omgdc:Bounds height="28.0" width="28.0" x="701.0" y="164.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E27274BD-5FFE-4484-B0B7-EFAC35F180CA" id="BPMNShape_sid-E27274BD-5FFE-4484-B0B7-EFAC35F180CA">
+        <omgdc:Bounds height="80.0" width="100.0" x="223.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E1583F4D-6998-48A6-B4EF-C0623ECD86A7" id="BPMNShape_sid-E1583F4D-6998-48A6-B4EF-C0623ECD86A7">
+        <omgdc:Bounds height="80.0" width="100.0" x="450.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-CA16842F-0D76-4CD0-B38F-17030B7181BD" id="BPMNEdge_sid-CA16842F-0D76-4CD0-B38F-17030B7181BD">
+        <omgdi:waypoint x="323.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-CEE5F74F-8FDA-44CA-BB47-5E9B0531F08B" id="BPMNEdge_sid-CEE5F74F-8FDA-44CA-BB47-5E9B0531F08B">
+        <omgdi:waypoint x="130.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="223.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D0B1DEB4-58AB-4FB2-80D9-1EFC48C37D28" id="BPMNEdge_sid-D0B1DEB4-58AB-4FB2-80D9-1EFC48C37D28">
+        <omgdi:waypoint x="550.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="701.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
